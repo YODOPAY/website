@@ -1,14 +1,11 @@
 'use client';
-
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { http } from '@/lib/http';
 import { HttpError } from '@/lib/http';
-import { useRouter } from 'next/navigation';
 
-export default function ConnectSnapPage() {
-
+function ConnectSnapContent() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -155,5 +152,20 @@ export default function ConnectSnapPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function ConnectSnapPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center p-6">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <ConnectSnapContent />
+    </Suspense>
   );
 }
