@@ -6,10 +6,13 @@ import { http } from '@/lib/http';
 import { HttpError } from '@/lib/http';
 
 function ConnectSnapContent() {
+
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [otp, setOtp] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const searchParams = useSearchParams();
 
   const code = searchParams.get('code');
@@ -17,7 +20,7 @@ function ConnectSnapContent() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      // Check if we have the required parameters
+
       if (!code || !state) {
         setError('Missing required OAuth parameters. Please try connecting again.');
         setLoading(false);
@@ -27,12 +30,20 @@ function ConnectSnapContent() {
       setError(null);
 
       try {
-        const response = await http.post('/snapchat/callback', {
+        
+        const response = await http.post('/auth/snapchat/callback', {
           state,
           code,
         });
 
         console.log('Success:', response);
+        
+        const responseOtp = response?.otp || response?.data?.otp || null;
+        if (responseOtp) {
+          const otpString = responseOtp.toString();
+          setOtp(otpString.length === 6 ? otpString : otpString.padStart(6, '0'));
+        }
+        
         setSuccess(true);
         setLoading(false);
       } catch (err) {
@@ -58,9 +69,7 @@ function ConnectSnapContent() {
       </div>
 
       <div className="relative max-w-md w-full">
-        {/* Card */}
         <div className="bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl shadow-2xl p-8">
-          {/* Logo */}
           <div className="text-center mb-8">
             <div className="mb-4">
               <Image
@@ -92,11 +101,49 @@ function ConnectSnapContent() {
               Connecting to Snapchat...
             </div>
           ) : success ? (
-            <div className="w-full bg-green-500 text-white py-4 rounded-xl font-semibold text-lg shadow-lg flex items-center justify-center gap-3 mb-4">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Successfully Connected!, You can now close this page, and go back to the app
+            <div className="w-full mb-6">
+              {otp && (
+                <div className="space-y-6">
+                  <p className="text-white/90 text-sm text-center">
+                    Enter this code in the Yodo Pay app
+                  </p>
+                  
+                  <div className="flex items-center justify-center">
+                    <span className="text-6xl font-light text-white tracking-wider">
+                      {otp.slice(0, 3)} - {otp.slice(3, 6)}
+                    </span>
+                  </div>
+                  
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(otp);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    }}
+                    className="w-full bg-white/10 hover:bg-white/20 border border-white/30 text-white py-3 rounded-xl font-medium text-sm transition-colors flex items-center justify-center gap-2"
+                  >
+                    {copied ? (
+                      <>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Copied
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        Copy Code
+                      </>
+                    )}
+                  </button>
+                  
+                  <p className="text-white/70 text-xs text-center">
+                    Return to the app to continue
+                  </p>
+                </div>
+              )}
             </div>
           ) : error ? (
             <div className="w-full bg-red-500 text-white py-4 rounded-xl font-semibold text-md shadow-lg flex items-center justify-center gap-3 mb-4">
