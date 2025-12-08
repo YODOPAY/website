@@ -120,7 +120,7 @@ function ConnectSnapContent() {
                       setCopied(true);
                       setTimeout(() => setCopied(false), 2000);
                     }}
-                    className="w-full bg-white/10 hover:bg-white/20 border border-white/30 text-white py-3 rounded-xl font-medium text-sm transition-colors flex items-center justify-center gap-2"
+                    className="w-full cursor-pointer bg-white/10 hover:bg-white/20 border border-white/30 text-white py-3 rounded-xl font-medium text-sm transition-colors flex items-center justify-center gap-2"
                   >
                     {copied ? (
                       <>
