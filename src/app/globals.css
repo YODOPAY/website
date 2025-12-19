@@ -33,3 +33,16 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter-tight), Arial, Helvetica, sans-serif;
 }
+
+.font-hand {
+  font-family: var(--font-patrick-hand), cursive;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -45,7 +45,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
-        className={`${interTight.variable} ${patrickHand.variable} antialiased font-sans`}
+        className={`${interTight.variable} ${patrickHand.variable} antialiased font-sans no-scrollbar`}
       >
         <Header />
         {children}
