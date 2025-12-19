@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Inter_Tight } from "next/font/google";
+import { Inter_Tight, Patrick_Hand } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
+  subsets: ["latin"],
+});
+
+const patrickHand = Patrick_Hand({
+  weight: "400",
+  variable: "--font-patrick-hand",
   subsets: ["latin"],
 });
 
@@ -39,7 +45,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
-        className={`${interTight.variable} antialiased font-sans`}
+        className={`${interTight.variable} ${patrickHand.variable} antialiased font-sans`}
       >
         <Header />
         {children}

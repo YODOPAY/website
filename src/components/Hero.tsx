@@ -19,7 +19,7 @@ const Hero = () => {
     const [selectedOption, setSelectedOption] = useState(LOGO_OPTIONS[2]);
 
     return (
-        <section className="relative w-full min-h-screen flex flex-col items-center justify-start pt-24 md:pt-20 overflow-hidden bg-[#F5EFED]">
+        <section className="relative w-full min-h-screen flex flex-col items-center justify-start pt-24 md:pt-20 overflow-x-hidden max-w-[1920px] mx-auto min-w-[320px] bg-[#F5EFED]">
 
             {/* Background Image */}
             <div className="absolute inset-0 z-0 select-none pointer-events-none">
@@ -37,8 +37,8 @@ const Hero = () => {
 
                 {/* Decorative Images (Desktop Only) */}
                 <div className="absolute inset-0 pointer-events-none hidden md:block">
-                    {/* Right Side: Tag 2 */}
-                    <div className="absolute right-[-5%] top-[10%] w-[300px]">
+                    {/* Right Side: Tag 2 + Chat Bubbles */}
+                    <div className="absolute right-[-5%] top-[25%] w-[322px]">
                         <Image
                             src="/yodo_tag2.png"
                             alt="Yodo Tag"
@@ -49,7 +49,7 @@ const Hero = () => {
                     </div>
 
                     {/* Right Side: Coffee */}
-                    <div className="absolute right-[5%] top-[50%] w-[200px]">
+                    <div className="absolute right-[5%] bottom-[-60%] w-[342px]">
                         <Image
                             src="/coffee.png"
                             alt="Coffee Transaction"
@@ -59,8 +59,8 @@ const Hero = () => {
                         />
                     </div>
 
-                    {/* Left Side: Tag 1 */}
-                    <div className="absolute left-[-10%] top-[40%] w-[250px]">
+                    {/* Left Side: Tag 1 + Chat Bubble */}
+                    <div className="absolute left-[-3%] top-[70%] w-[350px]">
                         <Image
                             src="/yodo_tag1.png"
                             alt="Yodo Tag"
@@ -71,7 +71,7 @@ const Hero = () => {
                     </div>
 
                     {/* Bottom Left: Swapped */}
-                    <div className="absolute left-[15%] bottom-[-10%] w-[280px]">
+                    <div className="absolute left-[25%] bottom-[-80%] w-[324px]">
                         <Image
                             src="/swapped.png"
                             alt="Currency Swap"
@@ -118,7 +118,7 @@ const Hero = () => {
                                 <h1 className="text-5xl md:text-5xl font-black text-[#2e0e2e] tracking-tight">
                                     Always In
                                 </h1>
-                                <span className={`text-6xl md:text-5xl font-bold text-[#2e0e2e] -mt-2 ${caveat.className}`}>
+                                <span className="text-6xl md:text-5xl font-bold text-[#2e0e2e] -mt-2 font-hand">
                                     motion
                                 </span>
                                 <span className="text-4xl md:text-6xl animate-pulse">💨</span>
