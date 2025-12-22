@@ -3,6 +3,8 @@ import { Inter_Tight, Patrick_Hand } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
   subsets: ["latin"],
@@ -47,6 +49,7 @@ export default function RootLayout({
       <body
         className={`${interTight.variable} ${patrickHand.variable} antialiased font-sans no-scrollbar`}
       >
+        <SmoothScroll />
         <Header />
         {children}
       </body>
