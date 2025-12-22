@@ -15,18 +15,18 @@ const patrickHand = Patrick_Hand({
 });
 
 export const metadata: Metadata = {
-  title: "Yodo Pay - Coming Soon",
+  title: "Yodo Pay",
   description: "Yodo Pay - The future of social banking. Connect, transact, and manage your finances with friends and family like never before.",
   keywords: "social banking, fintech, payments, money transfer, financial app",
   authors: [{ name: "Yodo Pay" }],
   openGraph: {
-    title: "Yodo Pay - Coming Soon",
+    title: "Yodo Pay",
     description: "The future of social banking is here. Stay tuned for Yodo Pay.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yodo Pay - Coming Soon",
+    title: "Yodo Pay",
     description: "The future of social banking is here. Stay tuned for Yodo Pay.",
   },
 };
