@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const FifthSection = () => {
   return (
-    <section className="rounded-tl-4 rounded-tr-4 w-full min-h-screen bg-black text-white px-6 py-20 relative overflow-hidden flex flex-col items-center">
+    <section className="rounded-t-[100px] -mt-[100px] z-10 w-full min-h-screen bg-black text-white px-6 py-20 relative overflow-hidden flex flex-col items-center">
 
       {/* Header Content */}
       <div className="w-full max-w-4xl flex flex-col items-center text-center gap-8 z-10">

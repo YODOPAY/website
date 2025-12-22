@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const FourthSection = () => {
   return (
-    <section className="w-full min-h-screen bg-[var(--yodo-cream)] px-6 py-20 flex flex-col items-center justify-center overflow-hidden">
+    <section className="w-full min-h-screen bg-[var(--yodo-cream)] px-6 pt-20 pb-48 flex flex-col items-center justify-center overflow-hidden">
       <div className="w-full max-w-[1400px] flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24">
 
         {/* Left Content */}
