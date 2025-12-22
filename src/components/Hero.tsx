@@ -19,7 +19,7 @@ const Hero = () => {
     const [selectedOption, setSelectedOption] = useState(LOGO_OPTIONS[2]);
 
     return (
-        <section className="relative w-full min-h-screen flex flex-col items-center justify-start pt-24 md:pt-16 overflow-hidden max-w-[1920px] mx-auto min-w-[320px] bg-[#F5EFED]">
+        <section className="relative w-full min-h-screen flex flex-col items-center justify-start pt-24 md:pt-16 overflow-hidden max-w-[2040px] mx-auto min-w-[320px] bg-[#F5EFED]">
 
             {/* Background Image */}
             <div className="absolute inset-0 z-0 select-none pointer-events-none">
