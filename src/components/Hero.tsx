@@ -88,7 +88,7 @@ const Hero = () => {
                     <div className="relative flex flex-col items-start">
 
                         <div className="flex items-center gap-4 mb-[-10px] z-20 w-full justify-start">
-                            <span className="text-4xl md:text-5xl font-black text-[#2e0e2e] tracking-tight">
+                            <span className="text-[24px] md:text-5xl font-bold md:font-black text-[#2e0e2e] tracking-tight">
                                 Your
                             </span>
 
@@ -115,10 +115,10 @@ const Hero = () => {
 
                         <div className="flex flex-col items-start -mt-4">
                             <div className="flex items-baseline gap-3 flex-wrap justify-start">
-                                <h1 className="text-5xl md:text-5xl font-black text-[#2e0e2e] tracking-tight">
+                                <h1 className="text-[34px] md:text-5xl font-bold md:font-black text-[#2e0e2e] tracking-tight">
                                     Always In
                                 </h1>
-                                <span className="text-6xl md:text-5xl font-bold text-[#2e0e2e] -mt-2 font-hand">
+                                <span className="text-[34px] md:text-5xl font-bold text-[#2e0e2e] -mt-2 font-hand">
                                     motion
                                 </span>
                                 <span className="text-4xl md:text-6xl animate-pulse">💨</span>
@@ -128,38 +128,38 @@ const Hero = () => {
                     </div>
 
                     {/* Subheader */}
-                    <p className="max-w-2xl text-lg md:text-xl text-gray-600 mb-6 text-left mt-2 leading-relaxed font-semibold">
+                    <p className="max-w-2xl text-[18px] md:text-xl text-gray-600 mb-6 text-left mt-2 leading-relaxed font-semibold">
                         Find local vendors, pay friends via @Tag, and handle your
                         cash across borders. It's not just a map—it's your wallet.
                     </p>
 
                     {/* App Store Buttons */}
-                    <div className="flex flex-col sm:flex-row items-start gap-4">
-                        <button className="flex items-center gap-3 bg-black rounded-[48px] px-6 py-3 transition-transform hover:scale-105 active:scale-95 border border-transparent hover:border-[#CEC600]/30 shadow-lg">
+                    <div className="flex flex-row items-center justify-center sm:justify-start gap-4">
+                        <button className="flex items-center gap-2 md:gap-3 bg-black rounded-[31px] md:rounded-[48px] w-auto h-auto md:w-auto md:h-auto px-4 py-[5px] md:px-6 md:py-3 transition-transform hover:scale-105 active:scale-95 border border-transparent hover:border-[#CEC600]/30 shadow-lg justify-center md:justify-start">
                             <Image
                                 src="/icons/playstore.svg"
                                 alt="Google Play"
                                 width={32}
                                 height={32}
-                                className="w-8 h-8"
+                                className="w-4 h-4 md:w-8 md:h-8"
                             />
-                            <div className="flex flex-col items-start pr-2">
-                                <span className="text-[10px] uppercase font-bold text-[#CEC600] leading-tight tracking-wider">Get it on</span>
-                                <span className="text-xl font-bold text-[#CEC600] leading-none">Google Play</span>
+                            <div className="flex flex-col items-start pr-0 md:pr-2">
+                                <span className="text-[8px] md:text-[10px] uppercase font-bold text-[#CEC600] leading-tight tracking-wider whitespace-nowrap">Get it on</span>
+                                <span className="text-[12px] md:text-xl font-bold text-[#CEC600] leading-none whitespace-nowrap">Google Play</span>
                             </div>
                         </button>
 
-                        <button className="flex items-center gap-3 bg-black rounded-[48px] px-6 py-3 transition-transform hover:scale-105 active:scale-95 border border-transparent hover:border-[#CEC600]/30 shadow-lg">
+                        <button className="flex items-center gap-2 md:gap-3 bg-black rounded-[31px] md:rounded-[48px] w-auto h-auto md:w-auto md:h-auto px-4 py-[5px] md:px-6 md:py-3 transition-transform hover:scale-105 active:scale-95 border border-transparent hover:border-[#CEC600]/30 shadow-lg justify-center md:justify-start">
                             <Image
                                 src="/icons/appstore.svg"
                                 alt="App Store"
                                 width={32}
                                 height={32}
-                                className="w-8 h-8"
+                                className="w-4 h-4 md:w-8 md:h-8"
                             />
-                            <div className="flex flex-col items-start pr-1">
-                                <span className="text-[10px] uppercase font-bold text-[#CEC600] leading-tight tracking-wider">Download on the</span>
-                                <span className="text-xl font-bold text-[#CEC600] leading-none">App Store</span>
+                            <div className="flex flex-col items-start pr-0 md:pr-1">
+                                <span className="text-[8px] md:text-[10px] uppercase font-bold text-[#CEC600] leading-tight tracking-wider whitespace-nowrap">Download on the</span>
+                                <span className="text-[12px] md:text-xl font-bold text-[#CEC600] leading-none whitespace-nowrap">App Store</span>
                             </div>
                         </button>
                     </div>

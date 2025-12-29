@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter_Tight, Patrick_Hand } from "next/font/google";
+import { Inter_Tight, Patrick_Hand, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 
@@ -13,6 +13,11 @@ const interTight = Inter_Tight({
 const patrickHand = Patrick_Hand({
   weight: "400",
   variable: "--font-patrick-hand",
+  subsets: ["latin"],
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
 });
 
@@ -47,7 +52,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
-        className={`${interTight.variable} ${patrickHand.variable} antialiased font-sans no-scrollbar`}
+        className={`${interTight.variable} ${patrickHand.variable} ${plusJakartaSans.variable} antialiased font-sans no-scrollbar`}
       >
         <SmoothScroll />
         <Header />

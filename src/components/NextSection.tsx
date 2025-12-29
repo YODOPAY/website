@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 const NextSection = () => {
     return (
-        <section className="w-full min-h-screen flex flex-col md:flex-row">
+        <section className="w-full min-h-screen flex flex-col-reverse md:flex-row">
             {/* Left Content Side */}
-            <div className="w-full md:w-[60%] bg-[#3E3B00] px-8 py-16 md:p-16 lg:p-24 flex flex-col justify-center relative overflow-hidden">
+            <div className="w-full md:w-[60%] bg-[#3E3B00] px-4 py-16 md:p-16 lg:p-24 flex flex-col justify-center relative overflow-hidden">
 
                 {/* Text Content */}
                 <div className="z-10 mb-12">
@@ -25,7 +25,7 @@ const NextSection = () => {
                 {/* Photo Collage */}
                 <div className="relative w-full max-w-xl h-[300px] md:h-[400px] mt-8">
                     {/* Image 1 - Left */}
-                    <div className="absolute left-[5%] bottom-10 w-[35%] transform -rotate-6 z-10">
+                    <div className="absolute left-[-5%] bottom-6 w-[55%] transform -rotate-6 z-10">
                         <Image
                             src="/image1.png"
                             alt="Friends having fun"
@@ -34,7 +34,7 @@ const NextSection = () => {
                             className="w-full h-auto rounded-2xl shadow-xl"
                         />
                         {/* LOL Sticker */}
-                        <div className="absolute -top-2 -right-8 w-16 md:w-20 transform rotate-12 animate-bounce">
+                        <div className="absolute -top-6 -right-12 w-32 md:w-40 transform rotate-12 animate-bounce">
                             <Image
                                 src="/lol.png"
                                 alt="LOL Sticker"
@@ -46,7 +46,7 @@ const NextSection = () => {
                     </div>
 
                     {/* Image 2 - Center/Back */}
-                    <div className="absolute left-[28%] bottom-0 w-[35%] transform rotate-3 z-0">
+                    <div className="absolute left-[20%] bottom-[-20px] w-[55%] transform rotate-3 z-0">
                         <Image
                             src="/image2.png"
                             alt="Group selfie"
@@ -57,7 +57,7 @@ const NextSection = () => {
                     </div>
 
                     {/* Image 3 - Right */}
-                    <div className="absolute right-[12%] bottom-20 w-[35%] transform rotate-12 z-10">
+                    <div className="absolute right-[-5%] bottom-16 w-[55%] transform rotate-12 z-10">
                         <Image
                             src="/image3.png"
                             alt="Party vibes"
@@ -66,7 +66,7 @@ const NextSection = () => {
                             className="w-full h-auto rounded-2xl shadow-xl"
                         />
                         {/* YEAH Sticker */}
-                        <div className="absolute top-32 -right-6 w-16 md:w-20 transform -rotate-12 animate-bounce" style={{ animationDelay: '0.5s' }}>
+                        <div className="absolute top-24 -right-10 w-32 md:w-40 transform -rotate-12 animate-bounce" style={{ animationDelay: '0.5s' }}>
                             <Image
                                 src="/yeah.png"
                                 alt="Yeah Sticker"
@@ -80,12 +80,12 @@ const NextSection = () => {
             </div>
 
             {/* Right Image Side */}
-            <div className="w-full md:w-[40%] relative min-h-[50vh] md:min-h-screen">
+            <div className="w-full md:w-[40%] relative h-[800px] md:h-auto md:min-h-screen">
                 <Image
                     src="/side_image.png"
                     alt="YodoPay App Interface"
                     fill
-                    className="object-contain"
+                    className="object-cover object-top"
                     priority
                 />
             </div>

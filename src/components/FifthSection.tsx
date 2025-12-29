@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const FifthSection = () => {
   return (
-    <section className="rounded-t-[100px] -mt-[100px] z-10 w-full min-h-screen bg-black text-white px-6 py-20 relative overflow-hidden flex flex-col items-center">
+    <section className="rounded-t-[48px] md:rounded-t-[100px] -mt-[100px] z-10 w-full min-h-screen bg-black text-white px-6 py-20 relative overflow-hidden flex flex-col items-center">
 
       {/* Header Content */}
       <div className="w-full max-w-4xl flex flex-col items-center text-center gap-8 z-10">
@@ -67,32 +67,32 @@ const FifthSection = () => {
           </h3>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4">
-          <button className="flex items-center gap-3 bg-[#CEC600] text-black rounded-[48px] px-6 py-3 transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(206,198,0,0.3)]">
+        <div className="flex flex-row items-center justify-center gap-4">
+          <button className="flex items-center gap-2 md:gap-3 bg-[#CEC600] text-black rounded-[31px] md:rounded-[48px] px-4 py-[5px] md:px-6 md:py-3 transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(206,198,0,0.3)]">
             <Image
               src="/icons/playstore.svg"
               alt="Google Play"
               width={32}
               height={32}
-              className="w-8 h-8"
+              className="w-4 h-4 md:w-8 md:h-8"
             />
-            <div className="flex flex-col items-start pr-2">
-              <span className="text-[10px] uppercase font-bold leading-tight tracking-wider">Get it on</span>
-              <span className="text-xl font-bold leading-none">Google Play</span>
+            <div className="flex flex-col items-start pr-0 md:pr-2">
+              <span className="text-[8px] md:text-[10px] uppercase font-bold leading-tight tracking-wider whitespace-nowrap">Get it on</span>
+              <span className="text-[12px] md:text-xl font-bold leading-none whitespace-nowrap">Google Play</span>
             </div>
           </button>
 
-          <button className="flex items-center gap-3 bg-[#CEC600] text-black rounded-[48px] px-6 py-3 transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(206,198,0,0.3)]">
+          <button className="flex items-center gap-2 md:gap-3 bg-[#CEC600] text-black rounded-[31px] md:rounded-[48px] px-4 py-[5px] md:px-6 md:py-3 transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(206,198,0,0.3)]">
             <Image
               src="/icons/appstore.svg"
               alt="App Store"
               width={32}
               height={32}
-              className="w-8 h-8"
+              className="w-4 h-4 md:w-8 md:h-8"
             />
-            <div className="flex flex-col items-start pr-1">
-              <span className="text-[10px] uppercase font-bold leading-tight tracking-wider">Download on the</span>
-              <span className="text-xl font-bold leading-none">App Store</span>
+            <div className="flex flex-col items-start pr-0 md:pr-1">
+              <span className="text-[8px] md:text-[10px] uppercase font-bold leading-tight tracking-wider whitespace-nowrap">Download on the</span>
+              <span className="text-[12px] md:text-xl font-bold leading-none whitespace-nowrap">App Store</span>
             </div>
           </button>
         </div>
