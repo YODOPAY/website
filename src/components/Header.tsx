@@ -24,7 +24,7 @@ const Header = () => {
                 <Link href="#features" className="hover:text-black transition-colors">
                     Features
                 </Link>
-                <Link href="#spotlight" className="hover:text-black transition-colors">
+                <Link href="/spotlight/oluwafemidave" className="hover:text-black transition-colors">
                     Spotlight
                 </Link>
                 <Link href="#security" className="hover:text-black transition-colors">
