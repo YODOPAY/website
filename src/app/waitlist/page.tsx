@@ -61,25 +61,26 @@ export default function WaitlistPage() {
             {/* Hero Content */}
             <main className="mx-auto flex max-w-6xl flex-col items-center px-6 pt-8 pb-16 md:pt-12 md:pb-24 relative z-10">
                 <div className="relative text-center mb-6">
-                    <div className="flex flex-col items-center justify-center space-y-0">
-                        <h1 className="flex flex-col items-center md:flex-row md:items-baseline md:justify-center">
+                    <h1 className="flex flex-col items-center justify-center space-y-0">
+                        <div className="flex flex-col items-center md:flex-row md:items-baseline md:justify-center">
                             <span className="inline-block font-hand text-[85px] leading-[0.7] font-bold text-[#2E2D01] md:text-[130px] lg:text-[150px] md:mr-6">
                                 Money
                             </span>
                             <span className="inline-block font-jakarta text-[50px] font-bold tracking-tight text-[#7E7D5C] md:text-[85px] lg:text-[100px] leading-[0.8]">
                                 Is Better
                             </span>
-                        </h1>
-                        <h1 className="flex flex-col items-center md:flex-row md:items-baseline md:justify-center">
+                        </div>
+                        <div className="flex flex-col items-center md:flex-row md:items-baseline md:justify-center">
                             <span className="inline-block font-jakarta text-[50px] font-bold tracking-tight text-[#7E7D5C] md:text-[85px] lg:text-[100px] md:mr-6 leading-[0.8]">
                                 With
                             </span>
                             <span className="inline-block font-hand text-[85px] leading-[0.7] font-bold text-[#2E2D01] md:text-[130px] lg:text-[150px]">
                                 Friends.
                             </span>
-                        </h1>
-                    </div>
+                        </div>
+                    </h1>
                 </div>
+
 
                 <p className="max-w-xl text-center font-jakarta text-[15px] leading-[1.5] text-[#7E7D5C] md:text-[17px] mb-12">
                     The first social-first wallet is almost here. Secure your unique <span className="font-bold text-[#2E2D01]">@Tag</span> and custom <span className="font-bold text-[#2E2D01]">Color Aura</span> before the crowd arrives— <span className="md:block">banking will never look the same again.</span>
