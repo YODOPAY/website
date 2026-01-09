@@ -62,7 +62,8 @@ export default function RootLayout({
         className={`${interTight.variable} ${patrickHand.variable} ${plusJakartaSans.variable} ${clashDisplay.variable} antialiased font-sans no-scrollbar`}
       >
         <SmoothScroll />
-        <Header />
+        {/* <Header /> */}
+
         {children}
       </body>
     </html>
