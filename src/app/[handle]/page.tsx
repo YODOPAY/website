@@ -24,6 +24,12 @@ interface BusinessProfile {
     snapchat?: string;
   };
   paylink: string;
+  accountDetails?: {
+    
+    accountNumber: string;
+    accountName: string;
+    bankName?: string;
+  };
   createdAt: string;
 }
 
@@ -38,6 +44,17 @@ export default function SpotlightPage() {
   const [profile, setProfile] = useState<BusinessProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showToast, setShowToast] = useState(false);
+  
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -160,15 +177,20 @@ export default function SpotlightPage() {
             )}
 
             {profile.socialMedia.tiktok && (
-              <a href={`https://tiktok.com/${profile.socialMedia.tiktok}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center hover:bg-gray-50 transition-colors">
-                {/* TikTok Icon (Generic placeholder if not available SVG, or reusing one) - Using a simple replacement or just text if icon missing. The previous file didn't have tiktok icon. */}
-                <span className="text-xs font-bold text-black">Tk</span>
+              <a href={`https://tiktok.com/${profile.socialMedia.tiktok.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center hover:bg-gray-50 transition-colors">
+                {/* TikTok Icon */}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.62 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.872 4.872 0 0 1-1.003-.104z" fill="#1A1A1A" />
+                </svg>
               </a>
             )}
 
             {profile.socialMedia.snapchat && (
               <a href={`https://snapchat.com/add/${profile.socialMedia.snapchat}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center hover:bg-gray-50 transition-colors">
-                <span className="text-xs font-bold text-black">Sc</span>
+                {/* Snapchat Icon */}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z" fill="#1A1A1A" />
+                </svg>
               </a>
             )}
 
@@ -197,18 +219,66 @@ export default function SpotlightPage() {
           {profile.about}
         </p>
 
-        {/* Bank Details Card - Omitted as per plan since data is missing in API response */}
+        {/* Bank Details Card */}
+        {profile.accountDetails && (
+          <div className="w-full bg-[#EFECE8] rounded-xl p-6 mb-10 text-left space-y-5 border border-[#E5E2DE]">
+            <h3 className="text-sm font-bold text-[#1A1A1A] mb-1">Bank details</h3>
 
-        {/* Pay Link Section / Primary Action */}
+            {profile.accountDetails.bankName && (
+              <div className="flex justify-between items-center text-[15px]">
+                <span className="text-[#6B6B66]">Bank Name</span>
+                <span className="font-medium text-[#1A1A1A]">{profile.accountDetails.bankName}</span>
+              </div>
+            )}
+
+            <div className="flex justify-between items-center text-[15px]">
+              <span className="text-[#6B6B66]">Account Name</span>
+              <div className="text-right pl-4">
+                <span className="font-medium text-[#1A1A1A] block break-words text-right">{profile.accountDetails.accountName}</span>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center text-[15px]">
+              <span className="text-[#6B6B66]">Account Number</span>
+              <div className="flex items-center gap-2">
+                <span className="font-medium text-[#1A1A1A] tracking-wide">{profile.accountDetails.accountNumber}</span>
+                <button
+                  onClick={() => copyToClipboard(profile.accountDetails?.accountNumber || '')}
+                  className="text-[#4A4A45] hover:text-black transition-colors"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M5 15H4C2.89543 15 2 14.1046 2 13V4C2 2.89543 2.89543 2 4 2H13C14.1046 2 15 2.89543 15 4V5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Primary Action Button */}
         <div className="flex items-center justify-center">
-          {profile.paylink && (
-            <a href={`https://${profile.paylink}`} target="_blank" rel="noopener noreferrer" className="bg-[#1C1C1A] text-[#D0F224] font-bold py-4 px-8 rounded-full shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-[15px] flex items-center text-center justify-center min-w-[50%] w-fit cursor-pointer">
-              Pay {profile.businessName}
-            </a>
+          {profile.accountDetails && (
+            <button
+              onClick={() => copyToClipboard(`${profile.accountDetails?.accountNumber}\n${profile.accountDetails?.accountName}`)}
+              className="bg-[#1C1C1A] text-[#D0F224] font-bold py-4 px-8 rounded-full shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-[15px] flex items-center text-center justify-center min-w-[50%] w-fit cursor-pointer"
+            >
+              Copy account detail
+            </button>
           )}
         </div>
 
       </div>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-[#1C1C1A] text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-2 z-50 animate-fade-in-down transition-all duration-300">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 6L9 17L4 12" stroke="#D0F224" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="font-medium text-xs">Account detail copied</span>
+        </div>
+      )}
     </main>
   );
 }
