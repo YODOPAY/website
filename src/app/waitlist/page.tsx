@@ -126,46 +126,32 @@ export default function WaitlistPage() {
                 <div className="relative mt-20 w-full max-w-5xl h-[450px] md:h-[600px]">
                     <div className="relative w-full h-full flex items-center justify-center">
                         {/* Left Card */}
-                        <div className="absolute left-[0%] top-[10%] md:left-[5%] transform -rotate-[10deg] transition-all duration-700 hover:-rotate-[5deg] hover:-translate-y-4 z-10">
-                            <div className="relative w-[210px] h-[280px] md:w-[320px] md:h-[420px] bg-white p-3 rounded-[32px] shadow-[0_24px_50px_rgba(46,45,1,0.08)]">
-                                <div className="relative w-full h-full rounded-[24px] overflow-hidden">
-                                    <Image src="/image1.png" alt="Friends" fill className="object-cover" />
-                                </div>
-                            </div>
+                        <div className="absolute left-[0%] top-[10%] md:left-[5%] transform -rotate-[10deg] transition-all duration-700 hover:-rotate-[5deg] hover:-translate-y-4 z-10 w-[210px] h-[280px] md:w-[320px] md:h-[420px]">
+                            <Image src="/image1.png" alt="Friends" fill className="object-cover rounded-[32px]" />
                         </div>
 
                         {/* Middle Card */}
                         <div className="relative z-20 transform rotate-[2deg] transition-all duration-700 hover:rotate-0 hover:scale-[1.02] mt-10">
-                            <div className="relative w-[230px] h-[310px] md:w-[360px] md:h-[480px] bg-white p-3 rounded-[32px] shadow-[0_30px_60px_rgba(46,45,1,0.12)]">
-                                <div className="relative w-full h-full rounded-[24px] overflow-hidden">
-                                    <Image src="/image2.png" alt="Picnic" fill className="object-cover" />
-                                </div>
-                                {/* Top Emoji Bubble Sticker */}
-                                <div className="absolute -top-6 -right-6 md:-top-10 md:-right-10 bg-white rounded-full px-5 py-3 md:px-7 md:py-4 shadow-xl border border-gray-100 flex items-center gap-2 text-xl md:text-2xl animate-bounce" style={{ animationDuration: '3s' }}>
-                                    <span>🛍️</span>
-                                    <span>💸</span>
-                                    <span className="text-red-500">📍</span>
-                                </div>
+                            <div className="relative w-[230px] h-[310px] md:w-[360px] md:h-[480px]">
+                                <Image src="/image2.png" alt="Picnic" fill className="object-cover rounded-[32px]" />
+
                                 {/* Profile Sticker */}
-                                <div className="absolute -left-6 top-[20%] md:-left-12 w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-white shadow-lg overflow-hidden transition-transform duration-500 hover:scale-110">
+                                <div className="absolute -left-6 top-[20%] md:-left-12 w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-white shadow-lg overflow-hidden transition-transform duration-500 hover:scale-110 z-30 animate-bounce">
                                     <Image src="/ama.png" alt="User Sticker" fill className="object-cover" />
                                 </div>
-
                             </div>
                         </div>
 
                         {/* Right Card */}
-                        <div className="absolute right-[0%] top-[8%] md:right-[5%] transform rotate-[12deg] transition-all duration-700 hover:rotate-[6deg] hover:-translate-y-4 z-10">
-                            <div className="relative w-[210px] h-[280px] md:w-[320px] md:h-[420px] bg-white p-3 rounded-[32px] shadow-[0_24px_50px_rgba(46,45,1,0.08)]">
-                                <div className="relative w-full h-full rounded-[24px] overflow-hidden">
-                                    <Image src="/image3.png" alt="Camera" fill className="object-cover" />
-                                </div>
-                                {/* Yeah Sticker */}
-                                <div className="absolute -bottom-10 -right-6 md:-bottom-16 md:-right-10 w-24 h-24 md:w-40 md:h-40 transform -rotate-12 transition-transform duration-500 hover:scale-110 drop-shadow-2xl">
-                                    <Image src="/yeah.png" alt="Yeah Sticker" fill className="object-contain" />
-                                </div>
+                        <div className="absolute right-[0%] top-[8%] md:right-[5%] transform rotate-[12deg] transition-all duration-700 hover:rotate-[6deg] hover:-translate-y-4 z-10 w-[210px] h-[280px] md:w-[320px] md:h-[420px]">
+                            <Image src="/image3.png" alt="Camera" fill className="object-cover rounded-[32px]" />
+                            {/* Yeah Sticker */}
+                            <div className="absolute -bottom-10 -right-6 md:-bottom-16 md:-right-10 w-24 h-24 md:w-40 md:h-40 transform -rotate-12 transition-transform duration-500 hover:scale-110 drop-shadow-2xl z-30 animate-bounce">
+                                <Image src="/yeah.png" alt="Yeah Sticker" fill className="object-contain" />
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </main>
