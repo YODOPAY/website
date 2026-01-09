@@ -19,6 +19,16 @@
   --color-yodo-cream: var(--yodo-cream);
   --color-yodo-black: var(--yodo-black);
   --color-yodo-white: var(--yodo-white);
+  --color-brown-text: #292800;
+  --color-muted-title: #6B6A45;
+  --color-gray-text: #828282;
+  --color-btn-bg: #292800;
+  --color-btn-text: #ffffff;
+  --color-waitlist-bg: #FEFCE8;
+  --font-hand: var(--font-patrick-hand);
+  --font-jakarta: var(--font-plus-jakarta-sans);
+
+
 }
 
 @media (prefers-color-scheme: dark) {
