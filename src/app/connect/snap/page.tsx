@@ -36,7 +36,6 @@ function ConnectSnapContent() {
           code,
         });
 
-        console.log('Success:', response);
         
         const responseOtp = response?.otp || response?.data?.otp || null;
         if (responseOtp) {
@@ -109,7 +108,7 @@ function ConnectSnapContent() {
                   </p>
                   
                   <div className="flex items-center justify-center">
-                    <span className="text-6xl font-light text-white tracking-wider">
+                    <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-wider">
                       {otp.slice(0, 3)} - {otp.slice(3, 6)}
                     </span>
                   </div>
