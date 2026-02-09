@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 
 import SmoothScroll from "@/components/SmoothScroll";
+import { ToastProvider } from "@/components/ToastProvider";
 
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
@@ -62,9 +63,10 @@ export default function RootLayout({
         className={`${interTight.variable} ${patrickHand.variable} ${plusJakartaSans.variable} ${clashDisplay.variable} antialiased font-sans no-scrollbar`}
       >
         <SmoothScroll />
-        {/* <Header /> */}
-
-        {children}
+        <ToastProvider>
+          {/* <Header /> */}
+          {children}
+        </ToastProvider>
       </body>
     </html>
   );
