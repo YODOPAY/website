@@ -9,6 +9,7 @@ interface BusinessProfile {
   id: string;
   businessName: string;
   businessProfile: string;
+  businessLogo?: string;
   category: {
     name: string;
     icon: string;
@@ -133,13 +134,19 @@ export default function SpotlightPage() {
             {/* Avatar Container with Aura */}
             <div className="relative w-24 h-24 md:w-36 md:h-36">
               {/* Image Container */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-[3px] border-white z-10">
+              <div className="relative w-full h-full rounded-full overflow-hidden border-[3px] border-white z-10 bg-white">
                 <Image
-                  src="/images/spotlight-user.svg" // Fallback/Default image as per design
-                  alt={`${profile.businessName} Avatar`}
+                  src={profile.businessLogo || "/fallback-business.png"}
+                  alt={`${profile.businessName} logo`}
                   fill
                   className="object-cover"
                   priority
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== "/fallback-business.png") {
+                      target.src = "/fallback-business.png";
+                    }
+                  }}
                 />
               </div>
             </div>

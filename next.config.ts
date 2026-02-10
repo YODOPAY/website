@@ -3,6 +3,20 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.useyodopay.com",
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "http",
+        hostname: "api.useyodopay.com",
+        pathname: "/uploads/**",
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
