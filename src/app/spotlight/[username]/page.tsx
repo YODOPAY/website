@@ -80,7 +80,7 @@ export default function SpotlightUserPage() {
 
           <div className="flex justify-between items-center text-[15px]">
             <span className="text-[#6B6B66]">Bank Name</span>
-            <span className="font-medium text-[#1A1A1A]">Zenith Bank</span>
+            <span className="font-medium text-[#1A1A1A]">Safe Haven MFB</span>
           </div>
 
           <div className="flex justify-between items-center text-[15px]">
