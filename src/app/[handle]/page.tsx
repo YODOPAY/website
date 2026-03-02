@@ -231,12 +231,11 @@ export default function SpotlightPage() {
           <div className="w-full bg-[#EFECE8] rounded-xl p-6 mb-10 text-left space-y-5 border border-[#E5E2DE]">
             <h3 className="text-sm font-bold text-[#1A1A1A] mb-1">Bank details</h3>
 
-            {profile.accountDetails.bankName && (
-              <div className="flex justify-between items-center text-[15px]">
-                <span className="text-[#6B6B66]">Bank Name</span>
-                <span className="font-medium text-[#1A1A1A]">{profile.accountDetails.bankName}</span>
-              </div>
-            )}
+           
+                <div className="flex justify-between items-center text-[15px]">
+                  <span className="text-[#6B6B66]">Bank Name</span>
+                  <span className="font-medium text-[#1A1A1A]">Safe Haven MFB</span>
+                </div>
 
             <div className="flex justify-between items-center text-[15px]">
               <span className="text-[#6B6B66]">Account Name</span>
