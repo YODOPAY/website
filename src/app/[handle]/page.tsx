@@ -46,10 +46,13 @@ export default function SpotlightPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<'tag' | 'bank'>('tag');
   
-  const copyToClipboard = async (text: string) => {
+  const copyToClipboard = async (text: string, message = 'Copied to clipboard') => {
     try {
       await navigator.clipboard.writeText(text);
+      setToastMessage(message);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
     } catch (err) {
@@ -222,35 +225,61 @@ export default function SpotlightPage() {
         )}
 
         {/* Description */}
-        <p className="text-[#4A4A45] leading-relaxed mb-12 max-w-[500px] text-[15px] md:text-base font-normal text-left">
+        <p className="text-[#4A4A45] leading-relaxed mb-8 max-w-[500px] text-[15px] md:text-base font-normal text-left">
           {profile.about}
         </p>
 
-        {/* Bank Details Card */}
-        {profile.accountDetails && (
+        {/* Payment method: Radio-style tabs */}
+        <div className="flex flex-col gap-4 mb-8">
+          <span className="text-[13px] font-medium text-[#6B6B66]">How to pay</span>
+          <div className="flex items-center gap-6 sm:gap-8">
+            <label className="flex items-center gap-2.5 cursor-pointer group">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="tag"
+                checked={paymentMethod === 'tag'}
+                onChange={() => setPaymentMethod('tag')}
+                className="sr-only"
+              />
+              <span className={`flex items-center justify-center w-5 h-5 rounded-full border-2 flex-shrink-0 transition-colors ${paymentMethod === 'tag' ? 'border-[#1C1C1A] bg-[#1C1C1A]' : 'border-[#6B6B66] bg-transparent group-hover:border-[#4A4A45]'}`}>
+                {paymentMethod === 'tag' && <span className="w-1.5 h-1.5 rounded-full bg-[#FBF7F4]" />}
+              </span>
+              <span className={`text-[15px] font-medium transition-colors ${paymentMethod === 'tag' ? 'text-[#1A1A1A]' : 'text-[#6B6B66] group-hover:text-[#4A4A45]'}`}>Tag</span>
+            </label>
+            <label className="flex items-center gap-2.5 cursor-pointer group">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="bank"
+                checked={paymentMethod === 'bank'}
+                onChange={() => setPaymentMethod('bank')}
+                className="sr-only"
+              />
+              <span className={`flex items-center justify-center w-5 h-5 rounded-full border-2 flex-shrink-0 transition-colors ${paymentMethod === 'bank' ? 'border-[#1C1C1A] bg-[#1C1C1A]' : 'border-[#6B6B66] bg-transparent group-hover:border-[#4A4A45]'}`}>
+                {paymentMethod === 'bank' && <span className="w-1.5 h-1.5 rounded-full bg-[#FBF7F4]" />}
+              </span>
+              <span className={`text-[15px] font-medium transition-colors ${paymentMethod === 'bank' ? 'text-[#1A1A1A]' : 'text-[#6B6B66] group-hover:text-[#4A4A45]'}`}>Bank account</span>
+            </label>
+          </div>
+        </div>
+
+        {/* Tag content (default) */}
+        {paymentMethod === 'tag' && (
           <div className="w-full bg-[#EFECE8] rounded-xl p-6 mb-10 text-left space-y-5 border border-[#E5E2DE]">
-            <h3 className="text-sm font-bold text-[#1A1A1A] mb-1">Bank details</h3>
-
-           
-                <div className="flex justify-between items-center text-[15px]">
-                  <span className="text-[#6B6B66]">Bank Name</span>
-                  <span className="font-medium text-[#1A1A1A]">Safe Haven MFB</span>
-                </div>
-
-            <div className="flex justify-between items-center text-[15px]">
-              <span className="text-[#6B6B66]">Account Name</span>
-              <div className="text-right pl-4">
-                <span className="font-medium text-[#1A1A1A] block break-words text-right">{profile.accountDetails.accountName}</span>
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center text-[15px]">
-              <span className="text-[#6B6B66]">Account Number</span>
-              <div className="flex items-center gap-2">
-                <span className="font-medium text-[#1A1A1A] tracking-wide">{profile.accountDetails.accountNumber}</span>
+            <h3 className="text-sm font-bold text-[#1A1A1A] mb-1">Pay with Tag</h3>
+            <p className="text-[#4A4A45] text-[14px] leading-relaxed">
+              You can send money to this business from the Yodo Pay app using their Tag. Open the app, enter the Tag below, and complete your payment.
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[13px] text-[#6B6B66]">Tag</span>
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <span className="font-semibold text-[#1A1A1A] text-lg tracking-tight">@{profile.businessProfile}</span>
                 <button
-                  onClick={() => copyToClipboard(profile.accountDetails?.accountNumber || '')}
-                  className="text-[#4A4A45] hover:text-black transition-colors"
+                  type="button"
+                  onClick={() => copyToClipboard(profile.businessProfile, 'Tag copied')}
+                  className="text-[#4A4A45] hover:text-[#1A1A1A] transition-colors p-1 rounded-lg hover:bg-white/60"
+                  aria-label="Copy Tag"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -259,20 +288,62 @@ export default function SpotlightPage() {
                 </button>
               </div>
             </div>
+            <div className="flex justify-center pt-2">
+              <button
+                type="button"
+                onClick={() => copyToClipboard(profile.businessProfile, 'Tag copied')}
+                className="bg-[#1C1C1A] text-[#D0F224] font-bold py-4 px-8 rounded-full shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-[15px] cursor-pointer"
+              >
+                Copy Tag
+              </button>
+            </div>
           </div>
         )}
 
-        {/* Primary Action Button */}
-        <div className="flex items-center justify-center">
-          {profile.accountDetails && (
-            <button
-              onClick={() => copyToClipboard(`${profile.accountDetails?.accountNumber}\n${profile.accountDetails?.accountName}`)}
-              className="bg-[#1C1C1A] text-[#D0F224] font-bold py-4 px-8 rounded-full shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-[15px] flex items-center text-center justify-center min-w-[50%] w-fit cursor-pointer"
-            >
-              Copy account detail
-            </button>
-          )}
-        </div>
+        {/* Bank account content */}
+        {paymentMethod === 'bank' && profile.accountDetails && (
+          <>
+            <div className="w-full bg-[#EFECE8] rounded-xl p-6 mb-10 text-left space-y-5 border border-[#E5E2DE]">
+              <h3 className="text-sm font-bold text-[#1A1A1A] mb-1">Bank details</h3>
+              <div className="flex justify-between items-center text-[15px]">
+                <span className="text-[#6B6B66]">Bank Name</span>
+                <span className="font-medium text-[#1A1A1A]">Safe Haven MFB</span>
+              </div>
+              <div className="flex justify-between items-center text-[15px]">
+                <span className="text-[#6B6B66]">Account Name</span>
+                <div className="text-right pl-4">
+                  <span className="font-medium text-[#1A1A1A] block break-words text-right">{profile.accountDetails.accountName}</span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center text-[15px]">
+                <span className="text-[#6B6B66]">Account Number</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-[#1A1A1A] tracking-wide">{profile.accountDetails.accountNumber}</span>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(profile.accountDetails?.accountNumber || '', 'Account number copied')}
+                    className="text-[#4A4A45] hover:text-black transition-colors"
+                    aria-label="Copy account number"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M5 15H4C2.89543 15 2 14.1046 2 13V4C2 2.89543 2.89543 2 4 2H13C14.1046 2 15 2.89543 15 4V5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-center">
+              <button
+                type="button"
+                onClick={() => copyToClipboard(`${profile.accountDetails?.accountNumber}\n${profile.accountDetails?.accountName}`, 'Account detail copied')}
+                className="bg-[#1C1C1A] text-[#D0F224] font-bold py-4 px-8 rounded-full shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-[15px] flex items-center text-center justify-center min-w-[50%] w-fit cursor-pointer"
+              >
+                Copy account detail
+              </button>
+            </div>
+          </>
+        )}
 
       </div>
 
@@ -282,7 +353,7 @@ export default function SpotlightPage() {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 6L9 17L4 12" stroke="#D0F224" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className="font-medium text-xs">Account detail copied</span>
+          <span className="font-medium text-xs">{toastMessage}</span>
         </div>
       )}
     </main>
