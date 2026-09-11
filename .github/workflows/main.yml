@@ -23,6 +23,15 @@ jobs:
       - name: Build project
         run: yarn build
 
+      - name: Remove Old Build
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+             rm -rf /home/frontend/website/.next
+
       - name: Upload files to production server
         uses: appleboy/scp-action@v0.1.7
         with:
