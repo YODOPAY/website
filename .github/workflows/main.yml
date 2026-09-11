@@ -15,33 +15,29 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 23
+          node-version: 24
+          cache: npm
 
       - name: Install dependencies
-        run: yarn
+        run: npm ci
 
       - name: Build project
-        run: yarn build
+        run: npm run build
 
-      - name: Remove Old Build
-        uses: appleboy/ssh-action@v1.1.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-             rm -rf /home/frontend/website/.next
+      - name: Zip build output
+        run: |
+          zip -r deploy.zip .next public package.json yarn.lock next.config.js
 
-      - name: Upload files to production server
+      - name: Upload build zip to production server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "."
+          source: "deploy.zip"
           target: "/home/frontend/website/"
 
-      - name: Reload App
+      - name: Unzip and reload app
         uses: appleboy/ssh-action@v1.1.0
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -49,6 +45,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/frontend/website
-            yarn install
-            pm2 reload website --update-env
+            rm -rf .next
+            unzip -o deploy.zip
+            rm deploy.zip
+            npm install
+            pm2 reload admin --update-env
             pm2 save
