@@ -49,5 +49,5 @@ jobs:
             unzip -o deploy.zip
             rm deploy.zip
             npm install
-            pm2 reload admin --update-env
+            pm2 reload website --update-env
             pm2 save
