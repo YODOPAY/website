@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState } from 'react';
-  
+import Reveal from './Reveal';
+
 const faqData = [
   {
     question: "Is YodoPay A Bank?",
@@ -20,82 +21,94 @@ const faqData = [
     answer: "If you’ve got a hustle, we’ve got a map. Just claim your business @Tag, set up your shop profile, and you’ll show up for everyone nearby."
   },
   {
-    question: "Can I Use Yodo If I'm Bouncing Between Lagos And Accra?",
+    question: "Can I Use Yodo If I’m Bouncing Between Lagos And Accra?",
     answer: "That’s exactly what it’s for. Swap between Naira and Cedis in one tap with zero 'mental math.' Your wallet moves as fast as you do, so you can pay for that Uber or jollof the second you land."
   },
   {
-    question: "Is This Just Another Fintech App I'll Delete In A Week?",
+    question: "Is This Just Another Fintech App I’ll Delete In A Week?",
     answer: "Yodo is the only wallet that actually brings your city to life. Between the Discovery Map, the Spotlight vendors, it’s less about 'banking' and more about living your best life with the squad."
   }
 ];
 
-const APIcon = ({ isOpen }: { isOpen: boolean }) => (
-  <div className={`w-8 h-8 rounded-full bg-[#EAEAEA] flex items-center justify-center transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 11L6 1M6 1L1 6M6 1L11 6" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  </div>
-);
+const MARQUEE_ITEMS = [
+  "Money Moves.",
+  "Do Your Thing",
+  "Fund Plans.",
+  "Send Money.",
+  "Split Bills",
+  "Stay Connected",
+  "Get Paid",
+  "In Motion",
+];
 
 const SixthSection = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [openItems, setOpenItems] = useState<number[]>(faqData.map((_, index) => index));
 
   const toggleAccordion = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
+    setOpenItems((items) =>
+      items.includes(index) ? items.filter((item) => item !== index) : [...items, index]
+    );
   };
 
   return (
-    <section className="w-full min-h-screen bg-[var(--yodo-cream)] px-6 py-20 flex flex-col items-center">
-      <div className="w-full max-w-3xl flex flex-col items-center">
+    <section id="faqs" className="w-full bg-[#F5EFED] font-jakarta">
+      <div className="mx-auto w-full max-w-[702px] px-4 md:px-6 pt-16 md:pt-[84px] pb-16 md:pb-[190px] flex flex-col items-center">
 
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[var(--yodo-dark)] mb-2 tracking-tight">
-            Got Questions?
-          </h2>
-          <h2 className="text-4xl md:text-5xl font-hand italic text-[var(--yodo-dark)] opacity-90">
-            We've Got Answers.
-          </h2>
-        </div>
+        <h2 className="text-center font-display text-[26px] md:text-[32px] font-semibold leading-[1.2] text-[#292800]">
+          Got Questions?
+          <br />
+          <Reveal as="span" variant="write" delay={150} className="font-hand font-normal text-[1.3em] leading-none">We&rsquo;ve Got Answers.</Reveal>
+        </h2>
 
         {/* FAQ List */}
-        <div className="w-full flex flex-col gap-6">
+        <div className="w-full mt-10 md:mt-12 flex flex-col gap-6 md:gap-9">
           {faqData.map((item, index) => {
-            const isOpen = activeIndex === index;
+            const isOpen = openItems.includes(index);
             return (
-              <div
-                key={index}
-                className="w-full border-b border-gray-200/50 pb-6 cursor-pointer group"
-                onClick={() => toggleAccordion(index)}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <h3 className="text-lg md:text-xl font-bold text-[var(--yodo-dark)] font-sans">
+              <Reveal key={item.question} delay={Math.min(index, 3) * 80} className="w-full">
+                <button
+                  onClick={() => toggleAccordion(index)}
+                  aria-expanded={isOpen}
+                  className="w-full flex items-center justify-between gap-4 text-left cursor-pointer"
+                >
+                  <h3 className="font-display text-sm md:text-[19px] font-semibold leading-[1.2] text-[#292800]">
                     {item.question}
                   </h3>
-                  <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-                    <div className="w-10 h-10 rounded-full bg-[#E5E5E0] flex items-center justify-center group-hover:bg-[#dcdcd7] transition-colors">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform rotate-180">
-                        <path d="M7 13L7 1M7 1L1 7M7 1L13 7" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+                  <span className="shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-[#E5E5E5] flex items-center justify-center text-[#292800]">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" aria-hidden>
+                      <path d="M1 7h12" />
+                      {!isOpen && <path d="M7 1v12" />}
+                    </svg>
+                  </span>
+                </button>
 
                 <div
-                  className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'
+                  className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-2.5' : 'grid-rows-[0fr] opacity-0'
                     }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="text-base md:text-lg text-[var(--yodo-dark)] opacity-70 leading-relaxed max-w-[90%]">
+                    <p className="text-sm md:text-[19px] font-semibold leading-[1.6] text-[#525252]">
                       {item.answer}
                     </p>
                   </div>
                 </div>
-              </div>
+              </Reveal>
             );
           })}
         </div>
+      </div>
 
+      {/* Marquee */}
+      <div className="w-full h-[50px] md:h-[120px] bg-[#CEC600] overflow-hidden flex items-center">
+        <div className="animate-marquee">
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, index) => (
+            <span key={index} className="flex items-center font-display text-xs md:text-[19px] font-semibold text-[#3E3B00] whitespace-nowrap">
+              <span className="mx-5 md:mx-9 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#F0EEAD]" />
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

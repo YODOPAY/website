@@ -42,3 +42,9 @@ next-env.d.ts
 
 # block known malware drop
 /api.js
+
+# design export (reference only)
+/design.zip
+
+# Postman collection (contains API tokens)
+*.postman_collection.json

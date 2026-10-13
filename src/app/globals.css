@@ -27,6 +27,9 @@
   --color-waitlist-bg: #FEFCE8;
   --font-hand: var(--font-patrick-hand);
   --font-jakarta: var(--font-plus-jakarta-sans);
+  --font-display: var(--font-clash);
+  --font-inter: var(--font-inter-std);
+  --font-geist: var(--font-geist-sans);
 
 
 }
@@ -89,6 +92,234 @@ body {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
 .animate-toast-in {
   animation: toast-in 0.3s ease-out forwards;
+}
+/* ---------- Reveal animations (see components/Reveal.tsx) ---------- */
+
+[data-reveal] {
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-delay: var(--reveal-delay, 0ms);
+  animation-fill-mode: both;
+}
+
+/* Hidden until scrolled into view */
+[data-reveal]:not([data-inview]) {
+  opacity: 0;
+}
+
+[data-reveal="write"]:not([data-inview]) {
+  opacity: 1;
+}
+
+[data-reveal="write"]:not([data-inview]) > .reveal-write-inner {
+  clip-path: inset(-20% 100% -20% -5%);
+}
+
+[data-reveal="rise"][data-inview] {
+  animation-name: reveal-rise;
+}
+
+[data-reveal="pop"][data-inview] {
+  animation-name: reveal-pop;
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Photos dealt onto the table like cards */
+[data-reveal="deal"][data-inview] {
+  animation-name: reveal-deal;
+  animation-duration: 0.9s;
+  animation-timing-function: cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+/* Stickers slapped on */
+[data-reveal="stamp"][data-inview] {
+  animation-name: reveal-stamp;
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.34, 1.7, 0.64, 1);
+}
+
+/* Handwritten words written in from left to right */
+[data-reveal="write"],
+.reveal-write-inner {
+  display: inline-block;
+}
+
+[data-reveal="write"][data-inview] > .reveal-write-inner {
+  animation: reveal-write 0.9s cubic-bezier(0.65, 0, 0.35, 1) var(--reveal-delay, 0ms) both;
+}
+
+/* Neon sign flickering on */
+[data-reveal="neon"][data-inview] {
+  animation-name: reveal-neon;
+  animation-duration: 1.6s;
+  animation-timing-function: linear;
+}
+
+/* Cards tipping up into place */
+[data-reveal="tilt"][data-inview] {
+  animation-name: reveal-tilt;
+  animation-duration: 1s;
+}
+
+/* Stamps dropping in and settling */
+[data-reveal="drop"][data-inview] {
+  animation-name: reveal-drop;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes reveal-pop {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes reveal-deal {
+  from { opacity: 0; transform: translate(-60%, 90px) rotate(-28deg) scale(0.8); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes reveal-stamp {
+  from { opacity: 0; transform: scale(2.6) rotate(-18deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes reveal-write {
+  from { clip-path: inset(-20% 100% -20% -5%); }
+  to { clip-path: inset(-20% -5% -20% -5%); }
+}
+
+@keyframes reveal-neon {
+  0% { opacity: 0; }
+  8% { opacity: 0.9; }
+  12% { opacity: 0.15; }
+  20% { opacity: 1; }
+  26% { opacity: 0.3; }
+  34% { opacity: 1; }
+  60% { opacity: 1; }
+  64% { opacity: 0.55; }
+  70%, 100% { opacity: 1; }
+}
+
+@keyframes reveal-tilt {
+  from { opacity: 0; transform: perspective(1200px) translateY(60px) rotateX(18deg) scale(0.94); }
+  to { opacity: 1; transform: perspective(1200px); }
+}
+
+@keyframes reveal-drop {
+  from { opacity: 0; transform: translateY(-90px) rotate(9deg) scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Looping and one-shot helpers ---------- */
+
+/* Squishy bounce: Wallet logo on load and whenever its colour changes */
+@keyframes jelly {
+  0% { transform: scale(0.6, 0.6); opacity: 0; }
+  35% { transform: scale(1.12, 0.9); opacity: 1; }
+  55% { transform: scale(0.95, 1.06); }
+  75% { transform: scale(1.03, 0.98); }
+  100% { transform: none; }
+}
+
+.animate-jelly {
+  animation: jelly 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-pop {
+  animation: reveal-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-rise {
+  animation: reveal-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-6deg) scale(1.04); }
+  75% { transform: rotate(5deg) scale(1.04); }
+}
+
+/* Stickers gently rocking */
+.animate-wiggle-slow {
+  animation: wiggle 3.2s ease-in-out infinite;
+}
+
+/* Button sticker shaking on hover */
+.group:hover .group-hover-wiggle {
+  animation: wiggle 0.5s ease-in-out 2;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.45; transform: scale(0.96); }
+  50% { opacity: 0.8; transform: scale(1.06); }
+}
+
+/* Aura glow pulsing behind the profile photo */
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes sheet-up {
+  from { opacity: 0; transform: translateY(48px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Tag card and cookie banner springing up */
+.animate-sheet-up {
+  animation: sheet-up 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out both;
+}
+
+@keyframes badge-spin-in {
+  from { opacity: 0; transform: scale(0.2) rotate(-180deg); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-badge {
+  animation: badge-spin-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal]:not([data-inview]),
+  .reveal-write-inner,
+  [data-reveal]:not([data-inview]) > .reveal-write-inner {
+    opacity: 1;
+    clip-path: none;
+    animation: none;
+  }
+
+  .animate-jelly,
+  .animate-pop,
+  .animate-rise,
+  .animate-wiggle-slow,
+  .animate-breathe,
+  .animate-sheet-up,
+  .animate-fade-in,
+  .animate-badge,
+  .group:hover .group-hover-wiggle {
+    animation: none;
+  }
 }
