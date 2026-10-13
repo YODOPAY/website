@@ -54,6 +54,7 @@ const ReserveTagModal = ({ open, onClose }: ReserveTagModalProps) => {
     const [tag, setTag] = useState('');
     const [status, setStatus] = useState<TagStatus>('idle');
     const [suggestions, setSuggestions] = useState<string[]>([]);
+    const [reason, setReason] = useState<string | null>(null);
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [submitting, setSubmitting] = useState(false);
@@ -72,6 +73,7 @@ const ReserveTagModal = ({ open, onClose }: ReserveTagModalProps) => {
                 const result = await checkTagAvailability(tag, controller.signal);
                 setStatus(result.available ? 'available' : 'unavailable');
                 setSuggestions(result.suggestions);
+                setReason(result.reason);
             } catch {
                 if (!controller.signal.aborted) setStatus('error');
             }
@@ -178,6 +180,13 @@ const ReserveTagModal = ({ open, onClose }: ReserveTagModalProps) => {
                                 {status === 'error' && <span className="text-[#FF2825]">Couldn&rsquo;t check</span>}
                             </span>
                         </div>
+
+                        {/* Why the tag can't be used, e.g. reserved names */}
+                        {status === 'unavailable' && reason && (
+                            <p className="mt-2 text-left text-xs font-medium text-[#FF2825]" role="status">
+                                {reason}
+                            </p>
+                        )}
 
                         {status === 'unavailable' && suggestions.length > 0 ? (
                             <div className="mt-2.5 text-left">
