@@ -2,7 +2,7 @@
 
 import { createElement, useEffect, useRef } from 'react';
 
-type Variant = 'rise' | 'pop' | 'deal' | 'stamp' | 'write' | 'neon' | 'tilt' | 'drop';
+type Variant = 'rise' | 'pop' | 'deal' | 'stamp' | 'write' | 'neon' | 'tilt' | 'drop' | 'fan';
 
 interface RevealProps {
     /** Which entrance animation to play (defined in globals.css under "Reveal animations"). */
@@ -11,6 +11,8 @@ interface RevealProps {
     delay?: number;
     as?: 'div' | 'span' | 'p' | 'li';
     className?: string;
+    /** Extra inline styles, e.g. CSS variables a variant reads. */
+    style?: React.CSSProperties;
     children: React.ReactNode;
 }
 
@@ -35,7 +37,7 @@ const getObserver = () => {
 };
 
 /** Plays an entrance animation the first time its content scrolls into view. */
-const Reveal = ({ variant = 'rise', delay = 0, as = 'div', className, children }: RevealProps) => {
+const Reveal = ({ variant = 'rise', delay = 0, as = 'div', className, style, children }: RevealProps) => {
     const ref = useRef<HTMLElement>(null);
 
     useEffect(() => {
@@ -52,7 +54,7 @@ const Reveal = ({ variant = 'rise', delay = 0, as = 'div', className, children }
             ref,
             className,
             'data-reveal': variant,
-            style: delay ? ({ '--reveal-delay': `${delay}ms` } as React.CSSProperties) : undefined,
+            style: delay ? ({ ...style, '--reveal-delay': `${delay}ms` } as React.CSSProperties) : style,
         },
         // "write" clips an inner wrapper: clipping the observed element itself would stop
         // the IntersectionObserver from ever seeing it

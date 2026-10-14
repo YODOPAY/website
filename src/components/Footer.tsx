@@ -78,7 +78,16 @@ const linkClass = "font-geist text-base leading-6 font-medium hover:text-[#CEC60
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-linear-to-b from-black from-35% to-[#3E3B00] text-white px-6 md:px-[60px] pt-20 md:pt-[92px] pb-14 md:pb-[53px]">
+    <footer className="relative w-full bg-black text-white px-6 md:px-[60px] pt-20 md:pt-[92px] pb-14 md:pb-[53px] overflow-hidden">
+      <Image
+        src="/images/footer_bg.webp"
+        alt=""
+        width={720}
+        height={362}
+        sizes="100vw"
+        className="absolute inset-x-0 bottom-0 w-full h-auto min-h-[60%] object-cover object-bottom pointer-events-none select-none"
+      />
+      <div className="relative">
       <Reveal variant="pop" className="flex flex-col items-center text-center">
         <Image
           src="/logo.webp"
@@ -151,6 +160,7 @@ const Footer = () => {
           </p>
           <p>© 2026 Yodo. All rights reserved.</p>
         </div>
+      </div>
       </div>
     </footer>
   );

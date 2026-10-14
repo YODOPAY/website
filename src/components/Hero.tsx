@@ -17,19 +17,19 @@ const Hero = () => {
     const [selectedOption, setSelectedOption] = useState(LOGO_OPTIONS[2]);
 
     return (
-        <section className="relative w-full min-h-svh flex flex-col items-center justify-start pt-[166px] md:pt-[160px] pb-20 overflow-hidden bg-black font-jakarta">
+        // From laptop width up the section takes the photo's own proportions, so the whole image shows uncropped
+        <section className="relative w-full min-h-svh lg:min-h-0 lg:aspect-[2968/2158] flex flex-col items-center justify-start pt-[166px] md:pt-[160px] lg:pt-[max(120px,11.1vw)] pb-20 overflow-hidden bg-black font-jakarta">
 
             {/* Background Image */}
-            <div className="absolute inset-0 z-0 select-none pointer-events-none" data-parallax="0.25">
+            <div className="absolute inset-0 z-0 select-none pointer-events-none">
                 <Image
-                    src="/images/hero_bg.webp"
+                    src="/images/hero_friends.webp"
                     alt=""
                     fill
                     sizes="100vw"
                     className="object-cover"
                     priority
                 />
-                <div className="absolute inset-0 bg-black/20" />
             </div>
 
             {/* Content Container */}

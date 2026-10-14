@@ -8,9 +8,25 @@ import sharp from "sharp";
 
 const publicDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
 
-// [source, max width in px (about 2x the largest size it is shown at), quality]
+// [source, max width in px (about 2x the largest size it is shown at), quality, output name?]
+// Resized images are cached for a month by file name, so when a photo is swapped for a
+// different one, give it a new output name instead of reusing the old one.
 const IMAGES = [
-  ["images/hero_bg.png", 1440, 78],
+  ["images/hero_bg.png", 1920, 76, "images/hero_friends.webp"],
+  ["images/your_tag.png", 1920, 76],
+  ["images/footer_bg.png", 720, 72],
+  ["images/ama.png", 917, 82],
+  ["images/bring_together.png", 376, 88],
+  ["images/find_spot.png", 974, 82],
+  ["images/instant_transfer.png", 974, 82],
+  ["images/plans1.png", 604, 80],
+  ["images/plans2.png", 579, 80],
+  ["images/plans3.png", 594, 80],
+  ["images/plans4.png", 694, 80],
+  ["images/comment1.png", 86, 86],
+  ["images/comment2.png", 86, 86],
+  ["images/comment3.png", 86, 86],
+  ["images/comment4.png", 86, 86],
   ["wallet-logo.svg", 1222, 86],
   ["logo.png", 800, 86],
   ["side_image.png", 1196, 80],
@@ -33,9 +49,11 @@ const kb = (file) => Math.round(statSync(file).size / 1024);
 let before = 0;
 let after = 0;
 
-for (const [source, width, quality] of IMAGES) {
+for (const [source, width, quality, outputName] of IMAGES) {
   const input = path.join(publicDir, source);
-  const output = input.replace(/\.(png|svg)$/, ".webp");
+  const output = outputName
+    ? path.join(publicDir, outputName)
+    : input.replace(/\.(png|svg)$/, ".webp");
   await sharp(input, source.endsWith(".svg") ? { density: 172 } : {})
     .resize({ width, withoutEnlargement: true })
     .webp({ quality })
