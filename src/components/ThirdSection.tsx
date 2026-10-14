@@ -34,11 +34,11 @@ const ThirdSection = () => {
                     >
                         <div className={`${cardClass} bg-[#E9E9E9]`}>
                             <Image
-                                src="/images/tag1.webp"
+                                src="/images/ama.webp"
                                 alt="Pay By Yodo Tag"
                                 fill
                                 sizes="(min-width: 768px) 495px, 100vw"
-                                className="object-cover"
+                                className="object-contain"
                             />
                         </div>
                     </Feature>
@@ -48,9 +48,9 @@ const ThirdSection = () => {
                         title={<>📍 Find Spots. Pay Fast.</>}
                         description="Discover restaurants, stores, events, and creators around you. Browse, tap, and pay — without leaving Yodo."
                     >
-                        <div className={`${cardClass} bg-[#E8F5E9]`}>
+                        <div className={cardClass}>
                             <Image
-                                src="/images/tag3.webp"
+                                src="/images/find_spot.webp"
                                 alt="Find Spots"
                                 fill
                                 sizes="(min-width: 768px) 495px, 100vw"
@@ -67,9 +67,16 @@ const ThirdSection = () => {
                         title={<>Bring People Together<br />Around A Goal</>}
                         description="Create a Circle, contribute together, and reach shared goals with the people who matter."
                     >
-                        {/* TODO: replace with the Circles artwork once the asset is added */}
-                        <div className={`${cardClass} bg-linear-to-b from-[#DCE9F7] via-[#A9CDEF] via-55% to-[#8CCB5E] flex items-end justify-center pb-[10%]`}>
-                            <p className="font-hand text-2xl md:text-[28px] leading-tight text-[#D9F27E]">
+                        <div className={`${cardClass} bg-linear-to-b from-[#DCE9F7] via-[#A9CDEF] via-55% to-[#8CCB5E] flex items-end justify-center pb-[8%]`}>
+                            <Image
+                                src="/images/bring_together.webp"
+                                alt="Friends in a Circle"
+                                width={376}
+                                height={476}
+                                sizes="(min-width: 768px) 380px, 76vw"
+                                className="absolute left-[12%] top-[7%] w-[76%] h-auto"
+                            />
+                            <p className="relative font-hand text-2xl md:text-[28px] leading-tight text-[#D9F27E]">
                                 Everyone Stays<br />In The Loop
                             </p>
                         </div>
@@ -80,23 +87,13 @@ const ThirdSection = () => {
                         title={<>Instant Transfers That<br />Just Work ⚡</>}
                         description="Send and receive money in seconds. No delays, no “pending” anxiety. What you see is what moves."
                     >
-                        {/* TODO: replace with the final transfers artwork once the asset is added */}
-                        <div className={`${cardClass} bg-linear-to-b from-white via-[#F1E9FB] to-[#F7F4FA]`}>
+                        <div className={cardClass}>
                             <Image
-                                src="/yodo_tag2.webp"
-                                alt="Friends sending money"
-                                width={801}
-                                height={837}
-                                sizes="(min-width: 768px) 310px, 62vw"
-                                className="absolute left-[4%] top-[4%] w-[62%] h-auto"
-                            />
-                            <Image
-                                src="/yodo_tag1.webp"
-                                alt="Money received"
-                                width={764}
-                                height={486}
-                                sizes="(min-width: 768px) 420px, 84vw"
-                                className="absolute left-[8%] bottom-[5%] w-[84%] h-auto"
+                                src="/images/instant_transfer.webp"
+                                alt="Instant transfers between friends"
+                                fill
+                                sizes="(min-width: 768px) 487px, 100vw"
+                                className="object-cover"
                             />
                         </div>
                     </Feature>

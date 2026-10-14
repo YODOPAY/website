@@ -1,0 +1,21 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "landing-page",
+    "main",
+    "origin",
+    "preview"
+  ],
+  "parent": {
+    "landing-page": "main",
+    "main": null,
+    "origin": "main",
+    "preview": "main"
+  },
+  "order": [
+    "main",
+    "landing-page",
+    "origin",
+    "preview"
+  ]
+}

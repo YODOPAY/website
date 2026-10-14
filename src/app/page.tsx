@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import NextSection from "@/components/NextSection";
 import ThirdSection from "@/components/ThirdSection";
+import PlansSection from "@/components/PlansSection";
+import GoalSection from "@/components/GoalSection";
 import FourthSection from "@/components/FourthSection";
 import FifthSection from "@/components/FifthSection";
 import SixthSection from "@/components/SixthSection";
@@ -19,6 +21,8 @@ export default function Home() {
         <Hero />
         <NextSection />
         <ThirdSection />
+        <PlansSection />
+        <GoalSection />
         <FourthSection />
         <FifthSection />
         <SixthSection />
