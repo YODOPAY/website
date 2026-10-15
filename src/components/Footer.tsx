@@ -78,7 +78,16 @@ const linkClass = "font-geist text-base leading-6 font-medium hover:text-[#CEC60
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-linear-to-b from-black from-35% to-[#3E3B00] text-white px-6 md:px-[60px] pt-20 md:pt-[92px] pb-14 md:pb-[53px]">
+    <footer className="relative w-full bg-black text-white px-6 md:px-[60px] pt-20 md:pt-[92px] pb-14 md:pb-[53px] overflow-hidden">
+      <Image
+        src="/images/footer_bg.webp"
+        alt=""
+        width={720}
+        height={362}
+        sizes="100vw"
+        className="absolute inset-x-0 bottom-0 w-full h-auto min-h-[60%] object-cover object-bottom pointer-events-none select-none"
+      />
+      <div className="relative">
       <Reveal variant="pop" className="flex flex-col items-center text-center">
         <Image
           src="/logo.webp"
@@ -130,7 +139,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="mt-20 md:mt-[100px] flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-[76px]">
+      <div className="mt-20 md:mt-[100px] flex flex-col md:flex-row items-start gap-6 md:gap-[76px]">
         <Image
           src="/logo.webp"
           alt="Yodo"
@@ -138,10 +147,20 @@ const Footer = () => {
           height={42}
           className="w-[46px] h-auto shrink-0 brightness-0 invert"
         />
-        {/* TODO: placeholder legal copy from the design; replace with Yodo's real regulatory text before launch */}
-        <p className="max-w-[1070px] font-inter text-sm leading-7 text-[#B4B4B4]">
-          Yodo is a financial technology company, not a bank. Banking services are provided by licensed banking partners. Canadian services are offered by Yodo with registered address at 1285 West Broadway Suite 600 Vancouver BC V6H 3X8. Canada. Grey Finance Inc. is regulated by FINTRAC. US services are offered by Yodo. with its registered address at 651 N Broad St, Suite 206 Middletown DE 19709 US. Yodo Inc is regulated by FinCEN. Copyright © Grey Inc. 2026.
-        </p>
+        <div className="max-w-[1070px] flex flex-col gap-3 font-inter text-sm leading-7 text-[#B4B4B4]">
+          <p>
+            Yodo is a financial technology company, not a bank. Banking services are provided by our licensed banking partners.
+          </p>
+          <p>
+            United States: Services are provided by YODO SEND LLC, 1001 S Main St, Suite 600, Kalispell, MT 59901. YODO SEND LLC is registered with the Financial Crimes Enforcement Network (FinCEN) as a Money Services Business (MSB Registration No. 31000336102486).
+          </p>
+          {/* TODO: fill in the CAC registration number */}
+          <p>
+            Nigeria: Yodo Solutions is registered with the Corporate Affairs Commission (RC [number]).
+          </p>
+          <p>© 2026 Yodo. All rights reserved.</p>
+        </div>
+      </div>
       </div>
     </footer>
   );
