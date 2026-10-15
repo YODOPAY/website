@@ -1,89 +1,102 @@
 import React from 'react';
 import Image from 'next/image';
+import Reveal from './Reveal';
+
+const cardClass = "relative w-full aspect-[452/594] rounded-[44px] overflow-hidden transition-[translate,rotate,box-shadow] duration-500 hover:-translate-y-2 hover:rotate-1 hover:shadow-[0_30px_60px_-30px_rgba(41,40,0,0.35)]";
+
+const Feature = ({ title, description, order, children }: { title: React.ReactNode; description: string; order: string; children: React.ReactNode }) => (
+    <div className={`w-full flex flex-col items-center text-center ${order} md:order-none`}>
+        <Reveal>
+            <h3 className="font-display text-[23px] md:text-[29px] font-semibold leading-[1.2] text-[#292800]">
+                {title}
+            </h3>
+            <p className="mt-2.5 mb-7 text-[15px] md:text-[19px] font-semibold leading-[1.6] text-[#525252]">
+                {description}
+            </p>
+        </Reveal>
+        <Reveal variant="tilt" delay={120} className="w-full max-w-[495px]">
+            {children}
+        </Reveal>
+    </div>
+);
 
 const ThirdSection = () => {
     return (
-        <section className="w-full min-h-screen bg-[var(--yodo-cream)] px-4 md:px-6 py-20 flex justify-center">
-            <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+        <section id="features" className="w-full bg-[#F5EFED] px-4 md:px-6 pt-24 pb-20 md:pt-[140px] md:pb-[74px] font-jakarta">
+            <div className="mx-auto w-full max-w-[1260px] flex flex-col items-center md:items-start md:flex-row md:justify-between gap-[150px] md:gap-20">
 
-                {/* Item 1: Pay By Yodo Tag */}
-                <div className="flex flex-col items-center text-center gap-6">
-                    <div className="flex flex-col gap-2">
-                        <h3 className="text-3xl font-bold text-[var(--yodo-dark)] flex items-center justify-center gap-2">
-                            Pay By Yodo Tag <span>🎨</span>
-                        </h3>
-                        <p className="text-[var(--yodo-dark)] opacity-80 max-w-sm mx-auto">
-                            Send money using Yodo tags instead of long account numbers. Find friends instantly and pay in seconds.
-                        </p>
-                    </div>
-                    <div className="relative w-full aspect-[3/4] md:aspect-[4/5] max-w-md bg-[#F2F2F2] rounded-[3rem] overflow-hidden flex items-center justify-center p-0">
-                        <Image
-                            src="/images/tag1.png"
-                            alt="Pay By Yodo Tag"
-                            width={500}
-                            height={600}
-                            className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
-                        />
-                    </div>
+                {/* Left Column (columns dissolve on mobile so the features follow reading order) */}
+                <div className="contents md:flex flex-col md:gap-[190px] w-full max-w-[495px]">
+                    <Feature
+                        order="order-1"
+                        title={<>Pay By Yodo Tag 🎨</>}
+                        description="Send money using Yodo tags instead of long account numbers. Find friends instantly and pay in seconds."
+                    >
+                        <div className={`${cardClass} bg-[#E9E9E9]`}>
+                            <Image
+                                src="/images/ama.webp"
+                                alt="Pay By Yodo Tag"
+                                fill
+                                sizes="(min-width: 768px) 495px, 100vw"
+                                className="object-contain"
+                            />
+                        </div>
+                    </Feature>
+
+                    <Feature
+                        order="order-3"
+                        title={<>📍 Find Spots. Pay Fast.</>}
+                        description="Discover restaurants, stores, events, and creators around you. Browse, tap, and pay — without leaving Yodo."
+                    >
+                        <div className={cardClass}>
+                            <Image
+                                src="/images/find_spot.webp"
+                                alt="Find Spots"
+                                fill
+                                sizes="(min-width: 768px) 495px, 100vw"
+                                className="object-cover"
+                            />
+                        </div>
+                    </Feature>
                 </div>
 
-                {/* Item 2: One Wallet. Many Currencies. */}
-                <div className="flex flex-col items-center text-center gap-6 md:mt-24">
-                    <div className="flex flex-col gap-2">
-                        <h3 className="text-3xl font-bold text-[var(--yodo-dark)] flex items-center justify-center gap-2">
-                            One Wallet.<br />Many Currencies. <span className="inline-block">🌍</span>
-                        </h3>
-                        <p className="text-[var(--yodo-dark)] opacity-80 max-w-sm mx-auto">
-                            Hold NGN, USD, and more in one place. Switch wallets instantly and see each balance clearly, whenever you need it.
-                        </p>
-                    </div>
-                    <div className="relative w-full aspect-[3/4] md:aspect-[4/5] max-w-md bg-[#F2F2F2] rounded-[3rem] overflow-hidden flex items-center justify-center p-0">
-                        {/* This image seems to have its own background in the design (grass etc), so we might want object-cover or contain depending on the asset */}
-                        <Image
-                            src="/images/tag2.png"
-                            alt="Many Currencies"
-                            width={500}
-                            height={600}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                        />
-                    </div>
-                </div>
+                {/* Right Column */}
+                <div className="contents md:flex flex-col md:gap-[225px] w-full max-w-[487px] md:pt-[140px]">
+                    <Feature
+                        order="order-2"
+                        title={<>Bring People Together<br />Around A Goal</>}
+                        description="Create a Circle, contribute together, and reach shared goals with the people who matter."
+                    >
+                        <div className={`${cardClass} bg-linear-to-b from-[#DCE9F7] via-[#A9CDEF] via-55% to-[#8CCB5E] flex items-end justify-center pb-[8%]`}>
+                            <Image
+                                src="/images/bring_together.webp"
+                                alt="Friends in a Circle"
+                                width={376}
+                                height={476}
+                                sizes="(min-width: 768px) 380px, 76vw"
+                                className="absolute left-[12%] top-[7%] w-[76%] h-auto"
+                            />
+                            <p className="relative font-hand text-2xl md:text-[28px] leading-tight text-[#D9F27E]">
+                                Everyone Stays<br />In The Loop
+                            </p>
+                        </div>
+                    </Feature>
 
-                {/* Item 3: Find Spots. Pay Fast. */}
-                <div className="flex flex-col items-center text-center gap-6">
-                    <div className="flex flex-col gap-2">
-                        <h3 className="text-3xl font-bold text-[var(--yodo-dark)] flex items-center justify-center gap-2">
-                            <span className="text-red-500">📍</span> Find Spots. Pay Fast.
-                        </h3>
-                        <p className="text-[var(--yodo-dark)] opacity-80 max-w-sm mx-auto">
-                            Discover restaurants, stores, events, and creators around you. Browse, tap, and pay — without leaving Yodo.
-                        </p>
-                    </div>
-                    <div className="relative w-full aspect-[3/4] md:aspect-[4/5] max-w-md bg-[#E8F5E9] rounded-[3rem] overflow-hidden flex items-center justify-center">
-                        <Image
-                            src="/images/tag3.png"
-                            alt="Find Spots"
-                            width={500}
-                            height={600}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                        />
-                    </div>
-                </div>
-
-                {/* Item 4: Instant Transfers That Just Work */}
-                <div className="flex flex-col items-center text-center gap-6 md:mt-24">
-                    <div className="flex flex-col gap-2">
-                        <h3 className="text-3xl font-bold text-[var(--yodo-dark)] flex items-center justify-center gap-2">
-                            Instant Transfers That<br />Just Work <span className="text-yellow-400">⚡</span>
-                        </h3>
-                        <p className="text-[var(--yodo-dark)] opacity-80 max-w-sm mx-auto">
-                            Send and receive money in seconds. No delays, no "pending" anxiety. What you see is what moves.
-                        </p>
-                    </div>
-                    {/* Placeholder Gray Box as per design screenshot */}
-                    <div className="relative w-full aspect-[3/4] md:aspect-[4/5] max-w-md bg-[#EBEBEB] rounded-[3rem] shadow-inner hover:shadow-lg transition-shadow duration-300">
-                        {/* Empty state as shown in design */}
-                    </div>
+                    <Feature
+                        order="order-4"
+                        title={<>Instant Transfers That<br />Just Work ⚡</>}
+                        description="Send and receive money in seconds. No delays, no “pending” anxiety. What you see is what moves."
+                    >
+                        <div className={cardClass}>
+                            <Image
+                                src="/images/instant_transfer.webp"
+                                alt="Instant transfers between friends"
+                                fill
+                                sizes="(min-width: 768px) 487px, 100vw"
+                                className="object-cover"
+                            />
+                        </div>
+                    </Feature>
                 </div>
 
             </div>

@@ -4,6 +4,8 @@ import path from "path";
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
   images: {
+    // Keep resized images cached for a month instead of the 60s default
+    minimumCacheTTL: 2592000,
     remotePatterns: [
       {
         protocol: "https",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter_Tight, Patrick_Hand, Plus_Jakarta_Sans } from "next/font/google";
+import { Geist, Inter, Inter_Tight, Patrick_Hand, Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -20,6 +20,16 @@ const patrickHand = Patrick_Hand({
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
+  subsets: ["latin"],
+});
+
+const inter = Inter({
+  variable: "--font-inter-std",
+  subsets: ["latin"],
+});
+
+const geist = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -60,7 +70,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
-        className={`${interTight.variable} ${patrickHand.variable} ${plusJakartaSans.variable} ${clashDisplay.variable} antialiased font-sans no-scrollbar`}
+        className={`${interTight.variable} ${patrickHand.variable} ${plusJakartaSans.variable} ${inter.variable} ${geist.variable} ${clashDisplay.variable} antialiased font-sans no-scrollbar`}
       >
         <SmoothScroll />
         <ToastProvider>
