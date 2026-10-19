@@ -8,7 +8,8 @@ import sharp from "sharp";
 
 const publicDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
 
-// [source, max width in px (about 2x the largest size it is shown at), quality, output name?]
+// [source, max width in px (about 2x the largest size it is shown at), quality, output name?, lossless?]
+// Use lossless for flat-colour artwork with hard edges (logos, lettering): lossy WebP blurs them.
 // Resized images are cached for a month by file name, so when a photo is swapped for a
 // different one, give it a new output name instead of reusing the old one.
 const IMAGES = [
@@ -27,7 +28,7 @@ const IMAGES = [
   ["images/comment2.png", 86, 86],
   ["images/comment3.png", 86, 86],
   ["images/comment4.png", 86, 86],
-  ["wallet-logo.svg", 1222, 86],
+  ["wallet-logo.svg", 1222, 100, "wallet-logo-hd.webp", true],
   ["logo.png", 800, 86],
   ["side_image.png", 1196, 80],
   ["image1.png", 469, 82],
@@ -49,14 +50,14 @@ const kb = (file) => Math.round(statSync(file).size / 1024);
 let before = 0;
 let after = 0;
 
-for (const [source, width, quality, outputName] of IMAGES) {
+for (const [source, width, quality, outputName, lossless] of IMAGES) {
   const input = path.join(publicDir, source);
   const output = outputName
     ? path.join(publicDir, outputName)
     : input.replace(/\.(png|svg)$/, ".webp");
   await sharp(input, source.endsWith(".svg") ? { density: 172 } : {})
     .resize({ width, withoutEnlargement: true })
-    .webp({ quality })
+    .webp(lossless ? { lossless: true } : { quality })
     .toFile(output);
   before += kb(input);
   after += kb(output);
