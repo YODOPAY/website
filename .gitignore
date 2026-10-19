@@ -48,3 +48,7 @@ next-env.d.ts
 
 # Postman collection (contains API tokens)
 *.postman_collection.json
+
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
