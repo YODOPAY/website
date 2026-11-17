@@ -5,6 +5,20 @@ const RESERVE_PATH = "/api/proxy/handles/reserve";
 export const TAG_MIN_LENGTH = 3;
 export const TAG_MAX_LENGTH = 20;
 
+/** Parse the route's tag without allowing separators into an API path. */
+export function profileUsername(value: string | string[] | undefined): string | null {
+  const raw = Array.isArray(value) ? value[0] : value;
+  if (!raw) return null;
+  try {
+    const decoded = decodeURIComponent(raw);
+    if (!decoded.startsWith("@")) return null;
+    const name = decoded.slice(1);
+    return name.length >= TAG_MIN_LENGTH && name.length <= TAG_MAX_LENGTH && /^[a-zA-Z0-9._]+$/.test(name) ? name : null;
+  } catch {
+    return null;
+  }
+}
+
 export type TagAvailability = {
   available: boolean;
   /** Why the tag can't be used, e.g. "This tag is taken." */
@@ -59,8 +73,8 @@ export async function reserveTag(payload: {
       phone: payload.phone,
     }),
   });
-  if (!res.ok) {
-    const body = await res.json().catch(() => null);
+  const body = await res.json().catch(() => null);
+  if (!res.ok || ["fail", "failed", "error"].includes(body?.status)) {
     throw new Error(
       body?.message || "Couldn't reserve your tag. Please try again."
     );

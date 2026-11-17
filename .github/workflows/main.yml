@@ -4,6 +4,9 @@ on:
   push:
     branches: ["main"]
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -11,6 +14,50 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Malware guard
+        run: |
+          fail=0
+          for f in init config.bat api.js aji.js branch_structure.json temp_auto_push.bat temp_interactive_push.bat \
+                   public/fonts/fa-solid.lfk public/fonts/fa-solid.fml; do
+            if [ -e "$f" ]; then
+              echo "::error::Suspicious file present: $f"
+              fail=1
+            fi
+          done
+          if grep -rIl --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.github \
+               -e "global\['!'\]" -e "'-7888'" -e "createRequire" . ; then
+            echo "::error::Known loader marker found in files listed above"
+            fail=1
+          fi
+          if grep -rIl --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.github \
+               -e "eval(proxyInfo)" -e "atob(process.env.AUTH_API_KEY)" -e "fa-solid.lfk" . ; then
+            echo "::error::Known Pokowave backdoor marker found in files listed above"
+            fail=1
+          fi
+          if grep -rIlE --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.github \
+               --include='*.js' --include='*.mjs' --include='*.cjs' --include='*.ts' --include='*.tsx' --include='*.jsx' --include='*.json' \
+               '[[:space:]]{150,}[^[:space:]]' . ; then
+            echo "::error::Code hidden after long whitespace padding in files listed above"
+            fail=1
+          fi
+          if grep -nP '"(pre|post)?(dev|build|start(:\w+)?|test|install|db:migrate:\w+)"\s*:\s*"[^"]*(?<![\w-])node\s+(?!dist/)' package.json; then
+            echo "::error::package.json lifecycle script runs an unexpected node file (e.g. node init)"
+            fail=1
+          fi
+          if ! git check-ignore --no-index -q .env; then
+            echo "::error::.gitignore does not ignore .env (tracked secrets were part of the attack)"
+            fail=1
+          fi
+          while IFS= read -r f; do
+            if [ -e "$f" ]; then
+              echo "::error::Tracked environment file: $f"
+              fail=1
+            fi
+          done < <(git ls-files -- .env '.env.*' ':!.env.example')
+          exit $fail
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -19,14 +66,17 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
+
+      - name: Security regression tests
+        run: node --test tests/security.test.mjs
 
       - name: Build project
         run: npm run build
 
       - name: Zip build output
         run: |
-          zip -r deploy.zip .next public package.json yarn.lock next.config.js
+          zip -r deploy.zip .next public package.json package-lock.json next.config.ts
 
       - name: Upload build zip to production server
         uses: appleboy/scp-action@v0.1.7
@@ -44,10 +94,11 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            set -eu
             cd /home/frontend/website
             rm -rf .next
             unzip -o deploy.zip
             rm deploy.zip
-            npm install
+            npm ci --ignore-scripts
             pm2 reload website --update-env
             pm2 save

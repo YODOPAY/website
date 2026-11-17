@@ -30,7 +30,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
+.env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,15 +41,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# block known malware drop
-/api.js
-
 # design export (reference only)
 /design.zip
 
 # Postman collection (contains API tokens)
 *.postman_collection.json
-branch_structure.json
-temp_auto_push.bat
-temp_interactive_push.bat
-config.bat

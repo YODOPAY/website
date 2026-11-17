@@ -43,7 +43,8 @@ export async function fetchGuardianContext(
   email: string
 ): Promise<GuardianContextData> {
   const res = await fetch(
-    `/api/proxy/kyc/guardian/context?email=${encodeURIComponent(email)}`
+    `/api/proxy/kyc/guardian/context?email=${encodeURIComponent(email)}`,
+    { cache: "no-store" }
   );
   const body = await res.json();
   if (!res.ok) {
@@ -85,11 +86,12 @@ export async function verifyGuardianOtp(payload: {
 }): Promise<ApiSuccessResponse<unknown>> {
   const res = await fetch("/api/proxy/kyc/guardian/verify", {
     method: "POST",
+    cache: "no-store",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
   const body = await res.json();
-  if (!res.ok) {
+  if (!res.ok || body?.status !== "success") {
     throw new Error(body?.message || "Verification failed");
   }
   return body as ApiSuccessResponse<unknown>;

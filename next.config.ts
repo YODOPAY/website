@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import path from "path";
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
@@ -12,12 +11,15 @@ const nextConfig: NextConfig = {
         hostname: "api.useyodopay.com",
         pathname: "/uploads/**",
       },
-      {
-        protocol: "http",
-        hostname: "api.useyodopay.com",
-        pathname: "/uploads/**",
-      },
     ],
+  },
+  async headers() {
+    const headers = [
+      { key: "Referrer-Policy", value: "no-referrer" },
+      { key: "X-Robots-Tag", value: "noindex, nofollow" },
+      { key: "Cache-Control", value: "private, no-store, max-age=0" },
+    ];
+    return ["/guardian/:path*", "/connect/snap", "/api/proxy/kyc/guardian/:path*"].map((source) => ({ source, headers }));
   },
   async rewrites() {
     return [

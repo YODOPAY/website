@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Security and reproducible setup
+
+The local project folder is `yodo-website`. Use Node.js 24 and npm; `package-lock.json` is authoritative.
+
+```sh
+npm ci --ignore-scripts
+node --test tests/security.test.mjs
+npm run build
+npm run dev
+```
+
+A cold build fetches the existing Google Fonts. See `SECURITY.md` for removed loaders and remaining backend/privacy review items. Do not run infected historical revisions. Validate guardian verification, profile images and the Snapchat callback in staging before deployment.

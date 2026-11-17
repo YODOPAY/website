@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useParams, notFound } from 'next/navigation';
 import { http } from '@/lib/http';
+import { profileUsername } from '@/lib/yodoTag';
+import { safeWebsiteUrl, businessLogoUrl } from '@/lib/securityUrls';
 
 interface BusinessProfile {
   id: string;
@@ -62,28 +64,14 @@ export default function SpotlightPage() {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      let handle = params?.handle;
-
-      if (Array.isArray(handle)) {
-        handle = handle[0];
-      }
-
-      if (!handle) return;
-
-      // Check for @ prefix (encoded as %40 or literal @)
-      const decodedHandle = decodeURIComponent(handle);
-      if (!decodedHandle.startsWith('@')) {
-        // If it doesn't start with @, it might not be a spotlight page request.
-        // But since this is a catch-all [handle], we should perhaps handle it or let it 404.
-        // For this task, we assume the user navigates to /@username
+      const username = profileUsername(params?.handle);
+      if (!username) {
         setLoading(false);
         return;
       }
 
-      const username = decodedHandle.substring(1); // Remove '@'
-
       try {
-        const response = await http.get<ApiResponse>(`/business/profile/${username}`);
+        const response = await http.get<ApiResponse>(`/business/profile/${encodeURIComponent(username)}`);
         if (response && response.status === 'success') {
           setProfile(response.data);
         } else {
@@ -113,7 +101,7 @@ export default function SpotlightPage() {
   }
 
   if (error || !profile) {
-    if (!decodeURIComponent(params?.handle as string || '').startsWith('@')) {
+    if (!profileUsername(params?.handle)) {
       // Optionally render standard 404 or nothing if it catches other routes
       return notFound();
     }
@@ -127,6 +115,9 @@ export default function SpotlightPage() {
     );
   }
 
+  const websiteUrl = safeWebsiteUrl(profile.website);
+  const logoUrl = businessLogoUrl(profile.businessLogo);
+
   return (
     <main className="min-h-screen w-full bg-[#FBF7F4] flex flex-col justify-center p-6 sm:p-8 text-[#1A1A1A]">
       <div className="w-full max-w-2xl mx-auto flex flex-col">
@@ -139,7 +130,7 @@ export default function SpotlightPage() {
               {/* Image Container */}
               <div className="relative w-full h-full rounded-full overflow-hidden border-[3px] border-white z-10 bg-white">
                 <Image
-                  src={profile.businessLogo || "/fallback-business.png"}
+                  src={logoUrl}
                   alt={`${profile.businessName} logo`}
                   fill
                   className="object-cover"
@@ -157,8 +148,8 @@ export default function SpotlightPage() {
 
           {/* Social Icons - Flex Row on the right */}
           <div className="flex items-center gap-2">
-            {profile.website && (
-              <a href={profile.website} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center hover:bg-gray-50 transition-colors">
+            {websiteUrl && (
+              <a href={websiteUrl} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center hover:bg-gray-50 transition-colors">
                 {/* Link Icon */}
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M14 7H16C18.7614 7 21 9.23858 21 12C21 14.7614 18.7614 17 16 17H14M10 17H8C5.23858 17 3 14.7614 3 12C3 9.23858 5.23858 7 8 7H10M8 12H16" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
